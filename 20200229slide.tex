@@ -1,0 +1,161 @@
+\documentclass[dvipdfmx,11pt,notheorems]{beamer}
+%%%% 和文用 %%%%%
+\usepackage{bxdpx-beamer}
+\usepackage{pxjahyper}
+\usepackage{minijs}%和文用
+\renewcommand{\kanjifamilydefault}{\gtdefault}%和文用
+
+%%%% スライドの見た目 %%%%%
+\usetheme{Madrid}
+\usefonttheme{professionalfonts}
+\setbeamertemplate{frametitle}[default][center]
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}%好みに応じてどうぞ）
+\setbeamertemplate{blocks}[rounded]
+\useinnertheme{circles}
+%\setbeamertemplate{footline}[page number]
+%\setbeamerfont{footline}{size=\normalsize,series=\bfseries}
+%\setbeamercolor{footline}{fg=black,bg=black}
+%%%%
+
+%%%% 定義環境 %%%%%
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+\newtheorem{definition}{定義}
+\newtheorem{proposition}{命題}
+\newtheorem{lemma}{補題}
+\newtheorem{corollary}{系}
+\newtheorem{conjecture}{予想}
+\newtheorem*{remark}{Remark}
+\renewcommand{\proofname}{}
+%%%%%%%%%
+
+%%%%% フォント基本設定 %%%%%
+\usepackage[T1]{fontenc}%8bit フォント
+\usepackage{textcomp}%欧文フォントの追加
+\usepackage[utf8]{inputenc}%文字コードをUTF-8
+\usepackage[deluxe]{otf}%otfパッケージ
+\usepackage{lxfonts}%数式・英文ローマン体を Lxfont にする
+\usepackage{bm}%数式太字
+%%%%%%%%%%
+
+%%%%% PythonTeX %%%%%
+\usepackage[makestderr]{pythontex}
+\restartpythontexsession{\thesection}
+ 
+\title[All about cmath module]{君はcmathを知っているか}
+\author[Hayao]{Hayao Suzuki}
+\institute[Shizuoka 2020]{PyCon mini Shizuoka 2020}
+\date{February 29, 2020}
+
+\begin{document}
+
+\begin{frame}[plain]\frametitle{}
+\titlepage %表紙
+\end{frame}
+
+\begin{frame}\frametitle{Contents}
+\tableofcontents %目次
+\end{frame}
+
+\section{自己紹介}
+
+\begin{frame}\frametitle{自己紹介}
+
+\begin{block}{お前誰よ}
+\begin{description}
+\item[名前] Hayao Suzuki（鈴木　駿）
+\item[Twitter] @CardinalXaro
+\item[ブログ] \url{https://xaro.hatenablog.jp/}
+\item[専門] 数学 (組合せ論・グラフ理論)
+\item[学位] 修士（工学）、電気通信大学
+\item[仕事] 酢豆腐スペシャリスト
+\end{description}
+\end{block}
+
+\end{frame}
+
+\begin{frame}\frametitle{自己紹介}
+
+\begin{block}{技術書の査読}
+\begin{itemize}
+\item 『Effective Python』（オライリージャパン）
+\item 『エレガントなSciPy』（オライリージャパン）
+\item 『データサイエンス設計マニュアル』（オライリージャパン）など
+\item \url{https://xaro.hatenablog.jp/}に一覧あります。
+\end{itemize}
+\end{block}
+
+\begin{block}{いろんな発表}
+\begin{itemize}
+\item 「SymPyによる数式処理」（PyCon JP 2018）
+\item 「Pythonで楽しむ初等整数論」（PyCon mini Hiroshima 2019）など
+\item \url{https://xaro.hatenablog.jp/}に一覧あります。
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\section{cmathとは何者か}
+
+\begin{frame}\frametitle{バッテリー同梱}
+
+\begin{block}{バッテリー同梱哲学（\href{https://www.python.org/dev/peps/pep-0206/}{PEP 206}より）}
+Pythonディストリビューション自身が、別途ダウンロードすることなく
+すぐに利用できる豊富で汎用性の高い標準ライブラリを持つこと。
+\end{block}
+
+\begin{block}{Pythonチュートリアルで紹介されている例}
+\begin{itemize}
+\item \structure{\texttt{xmlrpc.client}} XML-RPC クライアント
+\item \structure{\texttt{xmlrpc.server}} XML-RPCサーバー
+\item \structure{\texttt{email}} 電子メールとMIME 処理のためのパッケージ
+\item \structure{\texttt{json}} JSONエンコーダおよびデコーダ
+\item \structure{\texttt{sqlite3}} SQLiteデータベースに対するDB-API 2.0インタフェース
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}\frametitle{今日の発表}
+
+\begin{block}{\texttt{cmath}モジュール}
+\begin{itemize}
+\item 複素数のための数学関数
+\item 標準ライブラリも外部ライブラリも豊富にある
+\item Guido van Rossum氏はアムステルダム大学で数学と計算機科学を専攻していた
+\end{itemize}
+\end{block}
+
+\begin{block}{今回使うもの}
+\begin{itemize}
+\item Python 3.7.x
+\item Matplotlib（グラフ描画ライブラリ）
+\item SymPy（記号計算ライブラリ、数論ライブラリも豊富）
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}\frametitle{今日の発表}
+
+\begin{block}{Pythonで楽しむ初等整数論}
+\begin{itemize}
+\item 定理の結果をPythonでプログラミングしてみよう
+\item 定理の証明からPythonでプログラミングしてみよう
+\end{itemize}
+\end{block}
+
+\begin{exampleblock}{資料は設計図共有サイトにある！}
+資料はすべて
+\url{https://github.com/HayaoSuzuki/PyCon-mini-Shizuoka-2020}
+にあります。
+\end{exampleblock}
+
+\end{frame}
+
+
+
+\end{document}
