@@ -107,7 +107,7 @@ Pythonディストリビューション自身が、別途ダウンロードす�
 すぐに利用できる豊富で汎用性の高い標準ライブラリを持つこと。
 \end{block}
 
-\begin{block}{Pythonチュートリアルで紹介されている例}
+\begin{exampleblock}{Pythonチュートリアルで紹介されている例}
 \begin{itemize}
 \item \structure{\texttt{xmlrpc.client}} XML-RPC クライアント
 \item \structure{\texttt{xmlrpc.server}} XML-RPCサーバー
@@ -115,7 +115,20 @@ Pythonディストリビューション自身が、別途ダウンロードす�
 \item \structure{\texttt{json}} JSONエンコーダおよびデコーダ
 \item \structure{\texttt{sqlite3}} SQLiteデータベースに対するDB-API 2.0インタフェース
 \end{itemize}
-\end{block}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}\frametitle{今日の発表}
+
+\begin{exampleblock}{\texttt{cmath}とは何者か}
+\begin{enumerate}
+\item C言語で実装された高速な\texttt{math}ライブラリ
+\item キュウリ(Cucumber)の画像識別のための数学ライブラリ
+\item 複素数(Complex Number)の計算ライブラリ
+\end{enumerate}
+
+\end{exampleblock}
 
 \end{frame}
 
@@ -124,8 +137,7 @@ Pythonディストリビューション自身が、別途ダウンロードす�
 \begin{block}{\texttt{cmath}モジュール}
 \begin{itemize}
 \item 複素数のための数学関数
-\item 9V電池のような存在に今、スポットを当てる。
-\item Guido van Rossum氏はアムステルダム大学で数学と計算機科学を専攻していた
+\item 9V電池やらニカド電池のような存在に今、スポットを当てる。
 \end{itemize}
 \end{block}
 
@@ -157,6 +169,89 @@ Pythonディストリビューション自身が、別途ダウンロードす�
 \end{exampleblock}
 
 \end{frame}
+
+\section{複素数とは何か}
+
+\begin{frame}\frametitle{複素数とは}
+
+\begin{center}
+\Huge{複素数の定義を言えますか？}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{複素数の定義}
+
+\begin{definition}[複素数]
+$i^{2}=-1$であるような基底が$1, i$を持つ
+実数体$\mathbf{R}$上の2次元ベクトル空間の元を複素数と呼ぶ。
+また、$i$を虚数単位と呼ぶ。
+\end{definition}
+
+\begin{exampleblock}{Pythonで複素数を定義する}
+\begin{pyconsole}
+3 + 5j # Pythonでは虚数単位をjまたはJとする
+(0 + 1J)**2 # 虚数単位の自乗は-1となる。
+4 + 5j == (5j + 4) # 実部と虚部がそれぞれ等しい
+\end{pyconsole}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{複素数と体}
+
+\begin{block}{体(Field) == 四則演算ができる集合}
+複素数は複素数体$\mathbf{C}$をなす。
+\end{block}
+
+\begin{exampleblock}{Pythonにおける複素数の四則演算}
+\begin{pyconsole}
+8 - 5j + -5 + 1j # 加法
+(1 + 2j) * (1 - 2J) # 乗法
+(97 + 0j) / (4 + 9j) # 除法
+\end{pyconsole}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{複素数と順序}
+\begin{block}{複素数体は順序体ではない}
+実数のような全順序関係を定義できない！
+\end{block}
+
+\begin{exampleblock}{Pythonも複素数体は順序体ではないことを知っている}
+\begin{pygments}{python}
+>>> -100 - 100j < 65536 + 256j # 右辺が大きそうに思えるが...
+\end{pygments}
+\begin{pygments}{python}
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: '<' not supported between 
+instances of 'complex' and 'complex'
+\end{pygments}
+\end{exampleblock}
+\end{frame}
+
+\section{複素数の極座標表記}
+
+\begin{frame}\frametitle{複素数の極座標表記}
+
+\begin{block}{複素数平面}
+複素数$z=x + iy$を2次元実数平面$\mathbf{R}^{2}$上の点$(x, y)$とみなすことができる。これを複素数平面という。
+\end{block}
+
+\begin{block}{複素数の極座標形式}
+複素数平面上の点を実部と虚部の組$(x, y)$ではなく原点からの距離$r$と偏角$\theta $でも定義できる。
+これを複素数の極座標形式という。
+\end{block}
+
+\end{frame}
+
+
+
+\section{複素指数函数と複素三角函数}
+
+\section{Mandelbrot集合}
 
 
 
