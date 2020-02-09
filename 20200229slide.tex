@@ -258,6 +258,22 @@ instances of 'complex' and 'complex'
 \end{block}
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{Pythonにおける複素数の極座標表記}
+\begin{exampleblock}{Pythonにおける複素数の四則演算}
+\begin{pyconsole}
+import cmath  # 真打登場
+z = 1 + 2j  # 直交座標から極座標に変換する
+r, phi = cmath.polar(z)
+r, phi  # r = abs(z), phi = cmath.phase(z)
+w = cmath.rect(r, phi)  # 極座標から直交座標に変換する
+w
+cmath.isclose(z, w)  # == ではなくiscloseを使う
+\end{pyconsole}
+\end{exampleblock}
+
+\end{frame}
+
+
 \section{複素指数函数と複素三角函数}
 
 \section{Mandelbrot集合}
