@@ -276,6 +276,40 @@ cmath.isclose(z, w)  # == ではなくiscloseを使う
 
 \section{複素指数函数と複素三角函数}
 
+\begin{frame}\frametitle{指数函数}
+
+\begin{block}{指数函数\texttt{cmath.exp(x)}（公式ドキュメントより）}
+$e$を自然対数の底として、$e$の$x$乗を返します。
+\end{block}
+
+\begin{alertblock}{複素数乗って何？？？}
+\begin{itemize}
+\item 自然数乗 $\rightarrow$ わかる
+\item 整数乗 $\rightarrow$ わかる
+\item 有理数乗 $\rightarrow$ まだわかる
+\item 実数乗 $\rightarrow$ ん？
+\item 複素数乗 $\rightarrow$ これもうわかんねぇな
+\end{itemize}
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}\frametitle{指数函数を巡る冒険}
+
+\begin{block}{極限で定義すればいいんだ！}
+\begin{equation*}
+e^{z} := \lim_{n \to \infty}\left ( 1 + \frac{z}{n} \right )^{n}.
+\end{equation*}
+\end{block}
+
+\begin{block}{無限級数で定義すればいいんだ！}
+\begin{equation*}
+e^{z} := \sum^{\infty}_{n=0}\frac{z^{n}}{n!}.
+\end{equation*}
+\end{block}
+
+\end{frame}
+
 \section{Mandelbrot集合}
 
 
