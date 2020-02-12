@@ -232,6 +232,25 @@ instances of 'complex' and 'complex'
 \end{exampleblock}
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{複素数の共役}
+
+\begin{block}{複素数の共役}
+複素数$z=x + iy$に対して$\bar{z}=x -iy$を$z$の共役と呼ぶ。
+\end{block}
+
+\begin{exampleblock}{Pythonにおける複素数の共役}
+\begin{pyconsole}
+z = 5 - 3j
+z.conjugate()  # complex型のメソッドとして
+\end{pyconsole}
+\end{exampleblock}
+
+\begin{alertblock}{共役の説明はどこにある？}
+組み込み型や\texttt{cmath}ではなく\texttt{numbers}モジュールで説明されている。
+\end{alertblock}
+
+\end{frame}
+
 \section{複素数の極座標表記}
 
 \begin{frame}\frametitle{複素数の極座標表記}
