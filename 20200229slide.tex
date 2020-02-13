@@ -301,12 +301,12 @@ cmath.isclose(z, w)  # == ではなくiscloseを使う
 $e$を自然対数の底として、$e$の$x$乗を返します。
 \end{block}
 
-\begin{alertblock}{複素数乗って何？？？}
+\begin{alertblock}{自然対数の底の複素数乗って何？？？}
 \begin{itemize}
 \item 自然数乗 $\rightarrow$ わかる
 \item 整数乗 $\rightarrow$ わかる
 \item 有理数乗 $\rightarrow$ まだわかる
-\item 実数乗 $\rightarrow$ ん？
+\item 実数乗 $\rightarrow$ まだこれなら...
 \item 複素数乗 $\rightarrow$ これもうわかんねぇな
 \end{itemize}
 \end{alertblock}
@@ -327,6 +327,56 @@ e^{z} := \sum^{\infty}_{n=0}\frac{z^{n}}{n!}.
 \end{equation*}
 \end{block}
 
+\begin{block}{実函数で定義すればいいんだ！}
+\begin{equation*}
+e^{z} := e^{x}(\cos{y}+i\sin{y}) 
+\end{equation*}
+where $z = x + iy$.
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{指数函数を巡る冒険}
+
+\begin{exampleblock}{極限値による定義}
+\begin{pygments}{python}
+def exp_by_limit(z: complex, n: int = 10) -> complex:
+    N = 10 ** n
+    return pow(1 + z / N, N)
+\end{pygments}
+\end{exampleblock}
+
+\begin{exampleblock}{無限級数による定義}
+\begin{pygments}{python}
+def exp_by_series(z: complex, n: int = 30) -> complex:
+    return sum(pow(z, i) / factorial(i) for i in range(n))
+\end{pygments}
+\end{exampleblock}
+
+\begin{exampleblock}{実函数による定義}
+\begin{pygments}{python}
+def exp_by_real_func(z: complex) -> complex:
+    x, y, i = z.real, z.imag, (0 + 1j)
+    return math.exp(x) * (math.cos(y) + math.sin(y) * i)
+\end{pygments}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{見せてもらおうか、\texttt{cmath.exp}の威力とやらを}
+\begin{exampleblock}{Eulerの等式$e^{i\pi} = -1$を計算してみる}
+\begin{pygments}{python}
+>>> z = cmath.pi * (0 + 1j)
+>>> exp_by_limit(z)
+(-1.0004936019770099+1.0340526558763341e-07j)
+>>> exp_by_series(z)
+(-1.0000000000000002+3.461777852236587e-16j)
+>>> exp_by_real_func(z)
+(-1+1.2246467991473532e-16j)
+>>> cmath.exp(z)
+(-1+1.2246467991473532e-16j)
+\end{pygments}
+\end{exampleblock}
 \end{frame}
 
 \section{Mandelbrot集合}
