@@ -446,10 +446,24 @@ def cos_by_exp(z):
 
 \end{frame}
 
-
-
 \section{Mandelbrot集合}
 
+\begin{frame}[fragile]\frametitle{Mandelbrot集合}
 
+\begin{block}{Mandelbrot集合}
+漸化式
+\begin{equation*}
+    \left\{
+    \begin{alignedat}{4}
+          z_{n+1} &= z^{2}_{n} +c \\
+          z_{0} &= 0
+    \end{alignedat}
+    \right.
+\end{equation*}
+で定義される複素数列$\{z_{n}\}$が発散しないような
+複素数$c$全体がなす集合をMandelbrot集合という。
+\end{block}
+
+\end{frame}
 
 \end{document}
