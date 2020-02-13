@@ -364,7 +364,7 @@ def exp_by_real_func(z: complex) -> complex:
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{見せてもらおうか、\texttt{cmath.exp}の威力とやらを}
-\begin{exampleblock}{Eulerの等式$e^{i\pi} = -1$を計算してみる}
+\begin{exampleblock}{自作の関数でEulerの等式$e^{i\pi} = -1$を計算してみる}
 \begin{pygments}{python}
 >>> z = cmath.pi * (0 + 1j)
 >>> exp_by_limit(z)
@@ -373,11 +373,80 @@ def exp_by_real_func(z: complex) -> complex:
 (-1.0000000000000002+3.461777852236587e-16j)
 >>> exp_by_real_func(z)
 (-1+1.2246467991473532e-16j)
+\end{pygments}
+\end{exampleblock}
+
+\begin{exampleblock}{\texttt{cmath.exp}でEulerの等式$e^{i\pi} = -1$を計算してみる}
+\begin{pygments}{python}
 >>> cmath.exp(z)
 (-1+1.2246467991473532e-16j)
 \end{pygments}
 \end{exampleblock}
+
 \end{frame}
+
+\begin{frame}\frametitle{三角函数}
+
+\begin{block}{余弦函数\texttt{cmath.cos(x)}（公式ドキュメントより）}
+$x$の余弦を返します。
+\end{block}
+
+\begin{block}{無限級数で定義すればいいんだ！}
+\begin{equation*}
+\cos{z} := \sum^{\infty}_{n=0}\frac{(-1)^{n}}{(2n)!}z^{2n}.
+\end{equation*}
+\end{block}
+
+\begin{block}{複素指数函数で定義すればいいんだ！}
+\begin{equation*}
+\cos{z} := \frac{1}{2}\left(e^{iz} + e^{-iz} \right) 
+\end{equation*}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{複素余弦函数を巡る冒険}
+
+\begin{exampleblock}{無限級数による定義}
+\begin{pygments}{python}
+def cos_by_series(z, n=30):
+    return sum(
+        (-1) ** i * pow(z, 2 * i) / factorial(2 * i) 
+        for i in range(n))
+\end{pygments}
+\end{exampleblock}
+
+\begin{exampleblock}{複素指数函数による定義}
+\begin{pygments}{python}
+def cos_by_exp(z):
+    i = 0 + 1j
+    return (cmath.exp(i * z) + cmath.exp(-i * z)) / 2
+\end{pygments}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{見せてもらおうか、\texttt{cmath.cos}の威力とやらを}
+\begin{exampleblock}{自作の関数で$\cos{\pi} = -1$を計算してみる}
+\begin{pygments}{python}
+>>> z = cmath.pi + 0j
+>>> cos_by_series(z)
+(-1.0000000000000002+0j)
+>>> cos_by_exp(z)
+(-1+0j)
+\end{pygments}
+\end{exampleblock}
+
+\begin{exampleblock}{\texttt{cmath.cos}で$\cos{\pi} = -1$を計算してみる}
+\begin{pygments}{python}
+>>> cmath.cos(z)
+(-1+0j)
+\end{pygments}
+\end{exampleblock}
+
+\end{frame}
+
+
 
 \section{Mandelbrot集合}
 
