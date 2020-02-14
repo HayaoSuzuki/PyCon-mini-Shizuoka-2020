@@ -143,9 +143,8 @@ Pythonディストリビューション自身が、別途ダウンロードす�
 
 \begin{block}{今回使うもの}
 \begin{itemize}
-\item Python 3.7.x
+\item Python 3.7.x（Python 3.8.xでも楽しめます！）
 \item Matplotlib（グラフ描画ライブラリ）
-\item SymPy（記号計算ライブラリ、もちろん複素数も扱える）
 \end{itemize}
 \end{block}
 
@@ -155,10 +154,13 @@ Pythonディストリビューション自身が、別途ダウンロードす�
 
 \begin{block}{君は\texttt{cmath}を知っているか}
 \begin{itemize}
+\item \texttt{cmath}とは何者か
 \item 複素数とは何か
 \item 複素数の極座標表記
-\item 複素指数函数・三角函数
-\item Mandelbrot集合
+\item 複素指数函数と複素三角函数
+%\item Mandelbrot集合
+\item 1の$n$乗根
+\item まとめ
 \end{itemize}
 \end{block}
 
@@ -446,34 +448,86 @@ def cos_by_exp(z):
 
 \end{frame}
 
-\section{Mandelbrot集合}
+%\section{Mandelbrot集合}
+%
+%\begin{frame}[fragile]\frametitle{Mandelbrot集合}
+%
+%\begin{block}{Mandelbrot集合}
+%漸化式
+%\begin{equation*}
+%    \left\{
+%    \begin{alignedat}{4}
+%          z_{n+1} &= z^{2}_{n} +c \\
+%          z_{0} &= 0
+%    \end{alignedat}
+%    \right.
+%\end{equation*}
+%で定義される複素数列$\{z_{n}\}$が発散しないような
+%複素数$c$全体がなす集合をMandelbrot集合という。
+%\end{block}
+%
+%\end{frame}
+%
+%\begin{frame}[fragile]\frametitle{Mandelbrot集合}
+%
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=8cm]{mandelbrot.png}
+%  \caption{Mandelbrot集合（Matplitlibのサンプルコードを改変）}
+%\end{figure}
+%
+%\end{frame}
 
-\begin{frame}[fragile]\frametitle{Mandelbrot集合}
+\section{1の$n$乗根}
 
-\begin{block}{Mandelbrot集合}
-漸化式
+\begin{frame}[fragile]\frametitle{1の$n$乗根}
+
+\begin{block}{1の$n$乗根}
+1の$n$乗根は
 \begin{equation*}
-    \left\{
-    \begin{alignedat}{4}
-          z_{n+1} &= z^{2}_{n} +c \\
-          z_{0} &= 0
-    \end{alignedat}
-    \right.
+e^{i \frac{2\pi k}{n}}(k=0, \dots , n-1)
 \end{equation*}
-で定義される複素数列$\{z_{n}\}$が発散しないような
-複素数$c$全体がなす集合をMandelbrot集合という。
+で与えられる。
 \end{block}
 
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Mandelbrot集合}
+\begin{frame}[fragile]\frametitle{1の$n$乗根}
+\begin{exampleblock}{1の$n$乗根で正$n$角形を作図する}
+\begin{pygments}{python}
+N = 7
+roots_of_one = [
+    cmath.exp(((2 * cmath.pi * k) / N) * (0 + 1j)) 
+    for k in range(N + 1)
+]
+angles = list(map(cmath.phase, roots_of_one))
+length = list(map(abs, roots_of_one))
+plt.polar(angles, length)
+\end{pygments}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{1の$n$乗根}
 
 \begin{figure}
   \centering
-  \includegraphics[width=8cm]{mandelbrot.png}
-  \caption{Mandelbrot集合（Matplitlibのサンプルコードを改変）}
+  \includegraphics[width=8cm]{heptagon.png}
+  \caption{正七角形}
 \end{figure}
+正七角形は定規とコンパスによって作図ができない。
+\end{frame}
 
+\section{まとめ}
+
+\begin{frame}[fragile]\frametitle{まとめ}
+\begin{block}{まとめ}
+\begin{itemize}
+\item \texttt{cmath}は複素数のための数学ライブラリである。
+\item 標準ライブラリの範囲でも色々楽しめる。
+\item 実運用の場合はNumPyやSciPy、SymPyの活用も検討しましょう。
+\end{itemize}
+\end{block}
 \end{frame}
 
 \end{document}
