@@ -67,11 +67,15 @@
 \begin{block}{お前誰よ}
 \begin{description}
 \item[名前] Hayao Suzuki（鈴木　駿）
-\item[Twitter] @CardinalXaro
+\item[Twitter] \href{https://twitter.com/CardinalXaro}{@CardinalXaro}
 \item[ブログ] \url{https://xaro.hatenablog.jp/}
 \item[専門] 数学 (組合せ論・グラフ理論)
-\item[学位] 修士（工学）、電気通信大学
-\item[仕事] 酢豆腐スペシャリスト
+\item[学位] 修士（工学）、\href{https://www.uec.ac.jp/}{電気通信大学}
+\item[仕事] \href{https://iridge.jp/}{株式会社アイリッジ}
+\begin{itemize}
+\item スマートフォンアプリのバックエンドサーバーの開発
+\item 酢豆腐スペシャリスト
+\end{itemize}
 \end{description}
 \end{block}
 
@@ -177,7 +181,7 @@ Pythonディストリビューション自身が、別途ダウンロードす�
 \begin{frame}\frametitle{複素数とは}
 
 \begin{center}
-\Huge{複素数の定義を言えますか？}
+\Huge{複素数、知ってますか？}
 \end{center}
 
 \end{frame}
@@ -448,36 +452,6 @@ def cos_by_exp(z):
 
 \end{frame}
 
-%\section{Mandelbrot集合}
-%
-%\begin{frame}[fragile]\frametitle{Mandelbrot集合}
-%
-%\begin{block}{Mandelbrot集合}
-%漸化式
-%\begin{equation*}
-%    \left\{
-%    \begin{alignedat}{4}
-%          z_{n+1} &= z^{2}_{n} +c \\
-%          z_{0} &= 0
-%    \end{alignedat}
-%    \right.
-%\end{equation*}
-%で定義される複素数列$\{z_{n}\}$が発散しないような
-%複素数$c$全体がなす集合をMandelbrot集合という。
-%\end{block}
-%
-%\end{frame}
-%
-%\begin{frame}[fragile]\frametitle{Mandelbrot集合}
-%
-%\begin{figure}
-%  \centering
-%  \includegraphics[width=8cm]{mandelbrot.png}
-%  \caption{Mandelbrot集合（Matplitlibのサンプルコードを改変）}
-%\end{figure}
-%
-%\end{frame}
-
 \section{1の$n$乗根}
 
 \begin{frame}[fragile]\frametitle{1の$n$乗根}
@@ -510,12 +484,14 @@ plt.polar(angles, length)
 
 \begin{frame}[fragile]\frametitle{1の$n$乗根}
 
+\begin{block}{1の7乗根による正七角形の作図}
 \begin{figure}
   \centering
-  \includegraphics[width=8cm]{heptagon.png}
+  \includegraphics[width=7cm]{heptagon.png}
   \caption{正七角形}
 \end{figure}
 正七角形は定規とコンパスによって作図ができない。
+\end{block}
 \end{frame}
 
 \section{まとめ}
@@ -530,4 +506,72 @@ plt.polar(angles, length)
 \end{block}
 \end{frame}
 
+%%% おまけ %%%
+\appendix
+
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
+
+\section{Mandelbrot集合}
+
+\begin{frame}[fragile]\frametitle{おまけ}
+\begin{center}
+\Huge{おまけ}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Mandelbrot集合}
+
+\begin{block}{Mandelbrot集合}
+漸化式
+\begin{equation*}
+    \left\{
+    \begin{alignedat}{4}
+          z_{n+1} &= z^{2}_{n} +c \\
+          z_{0} &= 0
+    \end{alignedat}
+    \right.
+\end{equation*}
+で定義される複素数列$\{z_{n}\}$が発散しないような
+複素数$c$全体がなす集合をMandelbrot集合という。
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Mandelbrot集合}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=8cm]{mandelbrot.png}
+  \caption{Mandelbrot集合（Matplitlibのサンプルコードを改変）}
+\end{figure}
+
+\end{frame}
+
+\section{対数螺旋}
+
+\begin{frame}[fragile]\frametitle{対数螺旋}
+
+\begin{block}{対数螺旋}
+極座標$(r, \theta)$において$r = ae^{b\theta}$で表される平面曲線を対数螺旋という。
+\end{block}
+
+\begin{block}{対数螺旋と複素数}
+指数函数は複素数平面上の実数軸にも虚数軸にも平行ではない直線を対数螺旋に写す。
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{対数螺旋}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=8cm]{log_spiral.png}
+  \caption{対数螺旋}
+\end{figure}
+
+\end{frame}
+
+
+\setcounter{framenumber}{\value{finalframe}}
 \end{document}
