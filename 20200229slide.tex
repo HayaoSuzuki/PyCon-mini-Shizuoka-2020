@@ -74,7 +74,6 @@
 \item[仕事] \href{https://iridge.jp/}{株式会社アイリッジ}
 \begin{itemize}
 \item スマートフォンアプリのバックエンドサーバーの開発
-\item 酢豆腐スペシャリスト
 \end{itemize}
 \end{description}
 \end{block}
@@ -106,19 +105,6 @@
 
 \begin{frame}\frametitle{今日の発表}
 
-\begin{exampleblock}{\texttt{cmath}とは何者か}
-\begin{enumerate}
-\item C言語で実装された高速な\texttt{math}ライブラリ
-\item キュウリ(Cucumber)の画像識別のための数学ライブラリ
-\item 複素数(Complex Number)の計算ライブラリ
-\end{enumerate}
-
-\end{exampleblock}
-
-\end{frame}
-
-\begin{frame}\frametitle{今日の発表}
-
 \begin{block}{バッテリー同梱哲学（\href{https://www.python.org/dev/peps/pep-0206/}{PEP 206}より）}
 Pythonディストリビューション自身が、別途ダウンロードすることなく
 すぐに利用できる豊富で汎用性の高い標準ライブラリを持つこと。
@@ -132,6 +118,19 @@ Pythonディストリビューション自身が、別途ダウンロードす�
 \item \structure{\texttt{json}} JSONエンコーダおよびデコーダ
 \item \structure{\texttt{sqlite3}} SQLiteデータベースに対するDB-API 2.0インタフェース
 \end{itemize}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}\frametitle{今日の発表}
+
+\begin{exampleblock}{\texttt{cmath}とは何者か}
+\begin{enumerate}
+\item C言語で実装された高速な\texttt{math}ライブラリ
+\item キュウリ(Cucumber)の画像識別のための数学ライブラリ
+\item 複素数(Complex Number)の計算ライブラリ
+\end{enumerate}
+
 \end{exampleblock}
 
 \end{frame}
@@ -190,7 +189,7 @@ Pythonディストリビューション自身が、別途ダウンロードす�
 \begin{frame}[fragile]\frametitle{複素数の定義}
 
 \begin{definition}[複素数]
-$i^{2}=-1$であるような基底が$1, i$を持つ
+$i^{2}=-1$であるような基底$1, i$を持つ
 実数体$\mathbf{R}$上の2次元ベクトル空間の元を複素数と呼ぶ。
 また、$i$を虚数単位と呼ぶ。
 \end{definition}
@@ -198,7 +197,7 @@ $i^{2}=-1$であるような基底が$1, i$を持つ
 \begin{exampleblock}{Pythonで複素数を定義する}
 \begin{pyconsole}
 3 + 5j # Pythonでは虚数単位をjまたはJとする
-(0 + 1J)**2 # 虚数単位の自乗は-1となる。
+1J**2 # 虚数単位の自乗は-1となる。
 4 + 5j == (5j + 4) # 実部と虚部がそれぞれ等しい
 \end{pyconsole}
 \end{exampleblock}
@@ -218,7 +217,7 @@ $i^{2}=-1$であるような基底が$1, i$を持つ
 (97 + 0j) / (4 + 9j) # 除法
 \end{pyconsole}
 \end{exampleblock}
-
+97は素数であるが、$97 = (4 +9i)(4-9i)$となる。
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{複素数と順序}
@@ -237,6 +236,7 @@ TypeError: '<' not supported between
 instances of 'complex' and 'complex'
 \end{pygments}
 \end{exampleblock}
+順序体における平方元は非負である。
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{複素数の共役}
@@ -249,6 +249,7 @@ instances of 'complex' and 'complex'
 \begin{pyconsole}
 z = 5 - 3j
 z.conjugate()  # complex型のメソッドとして
+z * (z.conjugate() / abs(z)**2)  # 逆元を構成する
 \end{pyconsole}
 \end{exampleblock}
 
@@ -405,6 +406,14 @@ F(t) = \sum^{N-1}_{n=0}f(n)e^{-i \frac{2\pi n  t }{N}}
 で与えられる。
 \end{block}
 
+\begin{exampleblock}{離散Fourier変換の応用分野は2つ}
+\begin{itemize}
+\item 信号解析
+\item データ圧縮
+\item その他諸々
+\end{itemize}
+\end{exampleblock}
+
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{離散Fourier変換}
@@ -528,136 +537,4 @@ plt.polar(angles, length)
 \end{block}
 \end{frame}
 
-%%% おまけ %%%
-\appendix
-
-\newcounter{finalframe}
-\setcounter{finalframe}{\value{framenumber}}
-
-\begin{frame}[fragile]\frametitle{おまけ}
-\begin{center}
-\Huge{おまけ}
-\end{center}
-\end{frame}
-
-\section{複素三角函数}
-
-\begin{frame}\frametitle{三角函数}
-
-\begin{block}{余弦函数\texttt{cmath.cos(x)}（公式ドキュメントより）}
-$x$の余弦を返します。
-\end{block}
-
-\begin{block}{無限級数で定義すればいいんだ！}
-\begin{equation*}
-\cos{z} := \sum^{\infty}_{n=0}\frac{(-1)^{n}}{(2n)!}z^{2n}.
-\end{equation*}
-\end{block}
-
-\begin{block}{複素指数函数で定義すればいいんだ！}
-\begin{equation*}
-\cos{z} := \frac{1}{2}\left(e^{iz} + e^{-iz} \right) 
-\end{equation*}
-\end{block}
-
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{複素余弦函数を巡る冒険}
-
-\begin{exampleblock}{無限級数による定義}
-\begin{pygments}{python}
-def cos_by_series(z, n=30):
-    return sum(
-        (-1) ** i * pow(z, 2 * i) / factorial(2 * i) 
-        for i in range(n))
-\end{pygments}
-\end{exampleblock}
-
-\begin{exampleblock}{複素指数函数による定義}
-\begin{pygments}{python}
-def cos_by_exp(z):
-    i = 0 + 1j
-    return (cmath.exp(i * z) + cmath.exp(-i * z)) / 2
-\end{pygments}
-\end{exampleblock}
-
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{見せてもらおうか、\texttt{cmath.cos}の威力とやらを}
-\begin{exampleblock}{自作の関数で$\cos{\pi} = -1$を計算してみる}
-\begin{pygments}{python}
->>> z = cmath.pi + 0j
->>> cos_by_series(z)
-(-1.0000000000000002+0j)
->>> cos_by_exp(z)
-(-1+0j)
-\end{pygments}
-\end{exampleblock}
-
-\begin{exampleblock}{\texttt{cmath.cos}で$\cos{\pi} = -1$を計算してみる}
-\begin{pygments}{python}
->>> cmath.cos(z)
-(-1+0j)
-\end{pygments}
-\end{exampleblock}
-
-\end{frame}
-
-
-\section{Mandelbrot集合}
-
-\begin{frame}[fragile]\frametitle{Mandelbrot集合}
-
-\begin{block}{Mandelbrot集合}
-漸化式
-\begin{equation*}
-    \left\{
-    \begin{alignedat}{4}
-          z_{n+1} &= z^{2}_{n} +c \\
-          z_{0} &= 0
-    \end{alignedat}
-    \right.
-\end{equation*}
-で定義される複素数列$\{z_{n}\}$が発散しないような
-複素数$c$全体がなす集合をMandelbrot集合という。
-\end{block}
-
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{Mandelbrot集合}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=8cm]{mandelbrot.png}
-  \caption{Mandelbrot集合（Matplitlibのサンプルコードを改変）}
-\end{figure}
-
-\end{frame}
-
-\section{対数螺旋}
-
-\begin{frame}[fragile]\frametitle{対数螺旋}
-
-\begin{block}{対数螺旋}
-極座標$(r, \theta)$において$r = ae^{b\theta}$で表される平面曲線を対数螺旋という。
-\end{block}
-
-\begin{block}{対数螺旋と複素数}
-指数函数は複素数平面上の実数軸にも虚数軸にも平行ではない直線を対数螺旋に写す。
-\end{block}
-
-\end{frame}
-
-\begin{frame}[fragile]\frametitle{対数螺旋}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=8cm]{log_spiral.png}
-  \caption{対数螺旋}
-\end{figure}
-
-\end{frame}
-
-
-\setcounter{framenumber}{\value{finalframe}}
 \end{document}
