@@ -104,7 +104,20 @@
 
 \section{cmathとは何者か}
 
-\begin{frame}\frametitle{バッテリー同梱}
+\begin{frame}\frametitle{今日の発表}
+
+\begin{exampleblock}{\texttt{cmath}とは何者か}
+\begin{enumerate}
+\item C言語で実装された高速な\texttt{math}ライブラリ
+\item キュウリ(Cucumber)の画像識別のための数学ライブラリ
+\item 複素数(Complex Number)の計算ライブラリ
+\end{enumerate}
+
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}\frametitle{今日の発表}
 
 \begin{block}{バッテリー同梱哲学（\href{https://www.python.org/dev/peps/pep-0206/}{PEP 206}より）}
 Pythonディストリビューション自身が、別途ダウンロードすることなく
@@ -119,19 +132,6 @@ Pythonディストリビューション自身が、別途ダウンロードす�
 \item \structure{\texttt{json}} JSONエンコーダおよびデコーダ
 \item \structure{\texttt{sqlite3}} SQLiteデータベースに対するDB-API 2.0インタフェース
 \end{itemize}
-\end{exampleblock}
-
-\end{frame}
-
-\begin{frame}\frametitle{今日の発表}
-
-\begin{exampleblock}{\texttt{cmath}とは何者か}
-\begin{enumerate}
-\item C言語で実装された高速な\texttt{math}ライブラリ
-\item キュウリ(Cucumber)の画像識別のための数学ライブラリ
-\item 複素数(Complex Number)の計算ライブラリ
-\end{enumerate}
-
 \end{exampleblock}
 
 \end{frame}
@@ -161,7 +161,8 @@ Pythonディストリビューション自身が、別途ダウンロードす�
 \item \texttt{cmath}とは何者か
 \item 複素数とは何か
 \item 複素数の極座標表記
-\item 複素指数函数と複素三角函数
+\item 複素指数函数
+\item 離散Fourier変換
 %\item Mandelbrot集合
 \item 1の$n$乗根
 \item まとめ
@@ -299,7 +300,7 @@ cmath.isclose(z, w)  # == ではなくiscloseを使う
 \end{frame}
 
 
-\section{複素指数函数と複素三角函数}
+\section{複素指数函数}
 
 \begin{frame}\frametitle{指数函数}
 
@@ -391,65 +392,86 @@ def exp_by_real_func(z: complex) -> complex:
 
 \end{frame}
 
-\begin{frame}\frametitle{三角函数}
+\section{離散Fourier変換}
 
-\begin{block}{余弦函数\texttt{cmath.cos(x)}（公式ドキュメントより）}
-$x$の余弦を返します。
-\end{block}
+\begin{frame}[fragile]\frametitle{離散Fourier変換}
 
-\begin{block}{無限級数で定義すればいいんだ！}
+\begin{block}{離散Fourier変換}
+複素函数$f(x)$の離散Fourier変換$F(t)$は
+
 \begin{equation*}
-\cos{z} := \sum^{\infty}_{n=0}\frac{(-1)^{n}}{(2n)!}z^{2n}.
+F(t) = \sum^{N-1}_{n=0}f(n)e^{-i \frac{2\pi n  t }{N}}
 \end{equation*}
-\end{block}
-
-\begin{block}{複素指数函数で定義すればいいんだ！}
-\begin{equation*}
-\cos{z} := \frac{1}{2}\left(e^{iz} + e^{-iz} \right) 
-\end{equation*}
+で与えられる。
 \end{block}
 
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{複素余弦函数を巡る冒険}
+\begin{frame}[fragile]\frametitle{離散Fourier変換}
 
-\begin{exampleblock}{無限級数による定義}
-\begin{pygments}{python}
-def cos_by_series(z, n=30):
-    return sum(
-        (-1) ** i * pow(z, 2 * i) / factorial(2 * i) 
-        for i in range(n))
-\end{pygments}
-\end{exampleblock}
+\begin{block}{例：信号解析}
+\begin{figure}
+  \centering
+  \includegraphics[width=8cm]{sine_curve.png}
+  \caption{謎の信号}
+\end{figure}
 
-\begin{exampleblock}{複素指数函数による定義}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{離散Fourier変換}
+
+\begin{block}{例：信号のサンプリング}
+\begin{figure}
+  \centering
+  \includegraphics[width=8cm]{sampling.png}
+  \caption{謎の信号をサンプリングする}
+\end{figure}
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{離散Fourier変換}
+\begin{exampleblock}{離散Fourier変換（高速Fourier変換ではない！）}
 \begin{pygments}{python}
-def cos_by_exp(z):
-    i = 0 + 1j
-    return (cmath.exp(i * z) + cmath.exp(-i * z)) / 2
+inverse_Fs = [
+    sum(
+        (1 / sampling_freq)
+        * Fs[n]
+        * cmath.exp((0 + 2j) 
+        * cmath.pi * k * n / sampling_freq)
+        for n in range(sampling_freq)
+    )
+    for k in range(sampling_freq)
+]
 \end{pygments}
 \end{exampleblock}
 
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{見せてもらおうか、\texttt{cmath.cos}の威力とやらを}
-\begin{exampleblock}{自作の関数で$\cos{\pi} = -1$を計算してみる}
+\begin{frame}[fragile]\frametitle{離散Fourier変換}
+\begin{exampleblock}{信号の周波数スペクトル}
 \begin{pygments}{python}
->>> z = cmath.pi + 0j
->>> cos_by_series(z)
-(-1.0000000000000002+0j)
->>> cos_by_exp(z)
-(-1+0j)
+plt.stem(
+    range(-sampling_freq // 2, sampling_freq // 2),
+    list(map(abs, Fs)),
+    use_line_collection=True,
+)
 \end{pygments}
 \end{exampleblock}
 
-\begin{exampleblock}{\texttt{cmath.cos}で$\cos{\pi} = -1$を計算してみる}
-\begin{pygments}{python}
->>> cmath.cos(z)
-(-1+0j)
-\end{pygments}
-\end{exampleblock}
+\end{frame}
 
+\begin{frame}[fragile]\frametitle{離散Fourier変換}
+
+\begin{block}{例：信号の周波数スペクトル}
+\begin{figure}
+  \centering
+  \includegraphics[width=8cm]{stem.png}
+  \caption{謎の信号の周波数スペクトル}
+\end{figure}
+
+\end{block}
 \end{frame}
 
 \section{1の$n$乗根}
@@ -512,13 +534,77 @@ plt.polar(angles, length)
 \newcounter{finalframe}
 \setcounter{finalframe}{\value{framenumber}}
 
-\section{Mandelbrot集合}
-
 \begin{frame}[fragile]\frametitle{おまけ}
 \begin{center}
 \Huge{おまけ}
 \end{center}
 \end{frame}
+
+\section{複素三角函数}
+
+\begin{frame}\frametitle{三角函数}
+
+\begin{block}{余弦函数\texttt{cmath.cos(x)}（公式ドキュメントより）}
+$x$の余弦を返します。
+\end{block}
+
+\begin{block}{無限級数で定義すればいいんだ！}
+\begin{equation*}
+\cos{z} := \sum^{\infty}_{n=0}\frac{(-1)^{n}}{(2n)!}z^{2n}.
+\end{equation*}
+\end{block}
+
+\begin{block}{複素指数函数で定義すればいいんだ！}
+\begin{equation*}
+\cos{z} := \frac{1}{2}\left(e^{iz} + e^{-iz} \right) 
+\end{equation*}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{複素余弦函数を巡る冒険}
+
+\begin{exampleblock}{無限級数による定義}
+\begin{pygments}{python}
+def cos_by_series(z, n=30):
+    return sum(
+        (-1) ** i * pow(z, 2 * i) / factorial(2 * i) 
+        for i in range(n))
+\end{pygments}
+\end{exampleblock}
+
+\begin{exampleblock}{複素指数函数による定義}
+\begin{pygments}{python}
+def cos_by_exp(z):
+    i = 0 + 1j
+    return (cmath.exp(i * z) + cmath.exp(-i * z)) / 2
+\end{pygments}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{見せてもらおうか、\texttt{cmath.cos}の威力とやらを}
+\begin{exampleblock}{自作の関数で$\cos{\pi} = -1$を計算してみる}
+\begin{pygments}{python}
+>>> z = cmath.pi + 0j
+>>> cos_by_series(z)
+(-1.0000000000000002+0j)
+>>> cos_by_exp(z)
+(-1+0j)
+\end{pygments}
+\end{exampleblock}
+
+\begin{exampleblock}{\texttt{cmath.cos}で$\cos{\pi} = -1$を計算してみる}
+\begin{pygments}{python}
+>>> cmath.cos(z)
+(-1+0j)
+\end{pygments}
+\end{exampleblock}
+
+\end{frame}
+
+
+\section{Mandelbrot集合}
 
 \begin{frame}[fragile]\frametitle{Mandelbrot集合}
 
