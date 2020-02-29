@@ -374,7 +374,7 @@ def exp_by_real_func(z: complex) -> complex:
 \begin{frame}[fragile]\frametitle{見せてもらおうか、\texttt{cmath.exp}の威力とやらを}
 \begin{exampleblock}{自作の関数でEulerの等式$e^{i\pi} = -1$を計算してみる}
 \begin{pygments}{python}
->>> z = cmath.pi * (0 + 1j)
+>>> z = cmath.pi * 1j
 >>> exp_by_limit(z)
 (-1.0004936019770099+1.0340526558763341e-07j)
 >>> exp_by_series(z)
@@ -447,8 +447,7 @@ inverse_Fs = [
     sum(
         (1 / sampling_freq)
         * Fs[n]
-        * cmath.exp((0 + 2j) 
-        * cmath.pi * k * n / sampling_freq)
+        * cmath.exp(2j * cmath.pi * k * n / sampling_freq)
         for n in range(sampling_freq)
     )
     for k in range(sampling_freq)
@@ -502,7 +501,7 @@ e^{i \frac{2\pi k}{n}}(k=0, \dots , n-1)
 \begin{pygments}{python}
 N = 7
 roots_of_one = [
-    cmath.exp(((2 * cmath.pi * k) / N) * (0 + 1j)) 
+    cmath.exp(((2 * cmath.pi * k) / N) * 1j) 
     for k in range(N + 1)
 ]
 angles = list(map(cmath.phase, roots_of_one))
@@ -531,8 +530,8 @@ plt.polar(angles, length)
 \begin{block}{まとめ}
 \begin{itemize}
 \item \texttt{cmath}は複素数のための数学ライブラリである。
-\item 標準ライブラリの範囲でも色々楽しめる。
-\item 実運用の場合はNumPyやSciPy、SymPyの活用も検討しましょう。
+\item 標準ライブラリの範囲でも離散Fourier変換はできる。
+\item 君だけの最強の\texttt{cmath}アプリケーションを実装しよう！
 \end{itemize}
 \end{block}
 \end{frame}
