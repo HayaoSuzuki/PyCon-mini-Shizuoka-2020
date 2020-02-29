@@ -482,6 +482,51 @@ plt.stem(
 \end{block}
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{離散Fourier変換}
+\begin{block}{離散Fourier変換}
+逆離散Fourier変換は
+\begin{equation*}
+f(n) = \frac{1}{N}\sum^{N-1}_{n=0}F(t)e^{i \frac{2\pi n  t }{N}}
+\end{equation*}
+で与えられる。
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{離散Fourier変換}
+\begin{exampleblock}{逆離散Fourier変換}
+\begin{pygments}{python}
+# 逆離散Fourier変換
+inverse_Fs = [
+    sum(
+        (1 / sampling_freq)
+        * Fs[n]
+        * cmath.exp(2j * cmath.pi * k * n / sampling_freq)
+        for n in range(sampling_freq)
+    )
+    for k in range(sampling_freq)
+]
+# 実部だけ取り出す
+real_attr = operator.attrgetter("real")
+inverse_Fs_real = list(map(real_attr, inverse_Fs))
+\end{pygments}
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{離散Fourier変換}
+
+\begin{block}{例：信号を復元する}
+\begin{figure}
+  \centering
+  \includegraphics[width=8cm]{recover.png}
+  \caption{逆離散Fourier変換で元の信号を復元する}
+\end{figure}
+
+\end{block}
+\end{frame}
+
+
+
 \section{1の$n$乗根}
 
 \begin{frame}[fragile]\frametitle{1の$n$乗根}
