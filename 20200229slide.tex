@@ -443,11 +443,10 @@ F(t) = \sum^{N-1}_{n=0}f(n)e^{-i \frac{2\pi n  t }{N}}
 \begin{frame}[fragile]\frametitle{離散Fourier変換}
 \begin{exampleblock}{離散Fourier変換（高速Fourier変換ではない！）}
 \begin{pygments}{python}
-inverse_Fs = [
+Fs = [
     sum(
-        (1 / sampling_freq)
-        * Fs[n]
-        * cmath.exp(2j * cmath.pi * k * n / sampling_freq)
+        sampling_fs[n]
+        * cmath.exp(-2j * cmath.pi * k * n / sampling_freq)
         for n in range(sampling_freq)
     )
     for k in range(sampling_freq)
